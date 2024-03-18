@@ -5,7 +5,7 @@
 #include<time.h>
 
 int counter = 0;
-int xs = 0, ys = 0, xe = 50, ye = 0;
+int xs = 0, ys = 0, xe = 100, ye = 0;
 float theta = 0;
 
 void firstOctant(int dx, int dy){
@@ -60,7 +60,7 @@ void thirdOctant(int dx, int dy){
 }
 
 void fourthOctant(int dx, int dy){
-    int e = -(dy >> 1); 
+    int e = -(dx >> 1); 
     
     int x = xs;
     int y = ys;
@@ -68,16 +68,16 @@ void fourthOctant(int dx, int dy){
     while (x >= xe){   
         glVertex2i(x,y);
         x--;           
-        e = e - dy;     
-        if(e<=0){
+        e = e + dy;     
+        if(e>=0){
             y++;       
-            e = e - dx; 
+            e = e + dx; 
         }
     }
 }
 
 void fifthOctant(int dx, int dy){
-    int e = -(dx >> 1);
+    int e = (dx >> 1);
     
     int x = xs;
     int y = ys;
@@ -85,10 +85,10 @@ void fifthOctant(int dx, int dy){
     while (x >= xe){   
         glVertex2i(x,y);
         x--;           
-        e = e + dy;
-        if(e<=0){
+        e = e - dy;
+        if(e>=0){
             y--;       
-            e = e - dx;
+            e = e + dx;
         }
     }
 }
@@ -102,16 +102,16 @@ void sixthOctant(int dx, int dy){
     while (y >= ye){    
         glVertex2i(x,y);
         y--;            
-        e = e + dx;     
-        if(e<=0){
+        e = e - dx;     
+        if(e>=0){
             x--;        
-            e = e - dy; 
+            e = e + dy; 
         }
     }
 }
 
 void seventhOctant(int dx, int dy){
-    int e = -(dy >> 1); 
+    int e = (dy >> 1); 
     
     int x = xs;
     int y = ys;
@@ -128,7 +128,7 @@ void seventhOctant(int dx, int dy){
 }
 
 void eighthOctant(int dx, int dy){
-    int e = -(dy >> 1); 
+    int e = (dx >> 1); 
     
     int x = xs;
     int y = ys;
@@ -136,10 +136,10 @@ void eighthOctant(int dx, int dy){
     while (x <= xe){    
         glVertex2i(x,y);
         x++;            
-        e = e + dy;       
-        if(e<=0){
+        e = e - dy;       
+        if(e>=0){
             y--;        
-            e = e + dx; 
+            e = e - dx; 
         }
     }
 }
@@ -210,8 +210,8 @@ void display()
 
     if(counter%2000==0){
         theta = M_PI/16 + theta;
-        ye = (int) 50*(sin(theta));
-        xe = (int) 50*(cos(theta));
+        ye = (int) 100*(sin(theta));
+        xe = (int) 100*(cos(theta));
     }
 
  counter++;
